@@ -1,4 +1,3 @@
-from pickle import NONE
 from typing import Optional
 from fastapi import FastAPI
 from fastapi import HTTPException
@@ -99,4 +98,4 @@ async def calculadora(a: int = Query(default=None, gt=5),
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, debug=True, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
