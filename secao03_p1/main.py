@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Dict, List, Optional
 from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi import status
@@ -9,8 +9,10 @@ from fastapi import Header
 
 from models import Curso
 
-app = FastAPI()
-
+app = FastAPI(
+    title='Api Curso',
+    version='0.0.1',
+)
 
 cursos: list[Curso] = []
 
@@ -20,8 +22,11 @@ curso2 = Curso(id=2, titulo="Programação em python", aulas=60, horas=41)
 cursos.append(curso1)
 cursos.append(curso2)
 
-
-@app.get('/cursos')
+@app.get('/cursos', 
+         description='Retorna todos os cursos ou uma lista vazia!',
+         summary='Retorna todos os cursos',
+         response_model=List[Curso]
+         )
 async def get_cursos():
     return cursos
 
