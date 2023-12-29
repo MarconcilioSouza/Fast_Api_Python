@@ -28,6 +28,7 @@ async def post_curso(curso: CursoModel, db: AsyncSession = Depends(get_session))
     
     db.add(novo_curso)
     await db.commit()
+    await db.refresh(novo_curso) 
     
     return novo_curso
 
@@ -42,7 +43,7 @@ async def get_cursos(db: AsyncSession = Depends(get_session)):
         return cursos
 
 
-@router.get('/{curso_id}', response_model=List[CursoModel], status_code=status.HTTP_200_OK)
+@router.get('/{curso_id}', response_model=CursoModel, status_code=status.HTTP_200_OK)
 async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(CursoModel).where(CursoModel.id == curso_id)
